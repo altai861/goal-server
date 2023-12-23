@@ -15,6 +15,10 @@ async function register(req, res) {
 
         const userId = await sqliteDB.insertUser(username, hashedPassword);
 
+        if (typeof userId === 'object') {
+            return res.status(400).json({ success: true, message: "Duplicate username, change the username" })
+        }
+
         const token = createToken({ userId, username });
 
         res.cookie('token', token, { httpOnly: true, maxAge: 60 * 60 * 1000 });

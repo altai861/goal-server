@@ -46,6 +46,13 @@ db.all("SELECT * from todos", (err, rows) => {
         console.log(rows);
     }
 })
+db.all("SELECT * from lists", (err, rows) => {
+    if (err) {
+        console.error(err.message);
+    } else {
+        console.log(rows);
+    }
+})
 
 
 /*

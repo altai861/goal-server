@@ -16,7 +16,7 @@ db.run(`
         listId INTEGER primary key autoincrement,
         title TEXT NOT NULL,
         userId INTEGER NOT NULL,
-        FOREIGN KEY (userId) REFERENCES users(userId)
+        FOREIGN KEY (userId) REFERENCES users(userId) ON DELETE CASCADE
     )
 `);
 
@@ -29,7 +29,7 @@ db.run(`
         listId INTEGER,
         userId INTEGER NOT NULL,
         FOREIGN KEY (listId) references lists(listId),
-        FOREIGN KEY (userId) references users(userId)
+        FOREIGN KEY (userId) references users(userId) ON DELETE CASCADE
     )
 `)
 

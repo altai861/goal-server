@@ -41,6 +41,7 @@ app.use("/", require("./routes/root.js"))
 app.use("/users", require("./routes/usersRoutes.js"));
 app.use("/auth", require("./routes/authRoutes.js"))
 app.use("/todo", require("./routes/todoRoutes.js"));
+app.use("/list", require("./routes/listRoutes.js"))
 
 app.listen(port, function () {
     console.log("Server is running on port 3500");

@@ -18,7 +18,7 @@ function insertUser(username, password) {
   
         if (usernameExists) {
           // Username already exists, reject the promise
-          reject(new Error('Username already exists'));
+          resolve({ success: false, message: 'Username already exists' });
         } else {
           // Username does not exist, proceed with the insertion
           const insertUserQuery = 'INSERT INTO users (username, password) VALUES (?, ?)';
@@ -131,7 +131,7 @@ function updateTodo(userId, todoId, updateData) {
 
 function deleteTodo(userId, todoId) {
     return new Promise((resolve, reject) => {
-        const query = 'DELETE FROM todos todoId = ? AND userId = ?';
+        const query = 'DELETE FROM todos WHERE todoId = ? AND userId = ?';
 
         db.run(query, [todoId, userId], function (err) {
             if (err) {
@@ -156,11 +156,75 @@ function getTodos(userId) {
     });
   }
 
+//////////////////////////////////////////////////
+// List functions
+
+function addList(userId, title) {
+    return new Promise((resolve, reject) => {
+        // Build the INSERT query dynamically based on provided values
+        
+        const query = `INSERT INTO lists (title, userId) VALUES (?, ?)`;
+    
+        db.run(query, [title, userId], function (err) {
+          if (err) {
+            reject(err);
+          } else {
+            resolve(this.lastID);
+          }
+        });
+      });
+}
+
+function changeListTitle(userId, listId, title) {
+    return new Promise((resolve, reject) => {
+        const query = `UPDATE lists SET title = ? WHERE userId = ? AND listId = ?`;
+
+        db.run(query, [title, userId, listId], function (err) {
+            if (err) {
+                reject(err)
+            } else {
+                resolve(this.changes > 0);
+            }
+        })
+    })
+}
+
+function deleteList(userId, listId) {
+    return new Promise((resolve, reject) => {
+        const query = 'DELETE FROM lists WHERE listId = ? AND userId = ?';
+
+        db.run(query, [listId, userId], function (err) {
+            if (err) {
+                reject(err);
+            } else {
+                resolve(this.changes > 0);
+            }
+        })
+    })
+}
+
+function getLists(userId) {
+    return new Promise((resolve, reject) => {
+        const query = 'SELECT * FROM lists WHERE userId = ?';
+        db.all(query, [userId], (err, rows) => {
+          if (err) {
+            reject(err);
+          } else {
+            resolve(rows); // Resolve with the todos
+          }
+        });
+      });
+}
+
 module.exports = { 
     insertUser, 
     getUserByUsername,
     insertTodo,
     updateTodo, 
     deleteTodo,
-    getTodos
+    getTodos,
+    addList,
+    changeListTitle,
+    deleteList,
+    getLists
 }

@@ -8,7 +8,7 @@ function authenticateUser(req, res, next) {
     }
 
     const decoded = verifyToken(token);
-    console.log(decoded.userId);
+    console.log(decoded?.userId);
     if (!decoded) {
         return res.status(401).json({ success: false, message: "Unauthorized: Invalid token" });
     }
