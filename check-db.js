@@ -38,6 +38,7 @@ db.all("SELECT * from users", (err, rows) => {
         console.log(rows);
     }
 })
+
 db.all("SELECT * from todos", (err, rows) => {
     if (err) {
         console.error(err.message);
@@ -46,6 +47,16 @@ db.all("SELECT * from todos", (err, rows) => {
     }
 })
 
+
+/*
+db.run("DELETE from users", (err) =>{
+    if (err) {
+        console.log(err.message);
+    } else {
+        console.log("deleted");
+    }
+})
+*/
 
 
 
