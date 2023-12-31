@@ -13,9 +13,18 @@ const port = 3500;
 
 
 // These are allowed origins 
+const allowedOrigins = ['http://localhost:5173', 'https://altai861.github.io'];
+
 const corsOptions = {
-    origin: 'http://localhost:5173',  // Replace with your frontend's origin
-    credentials: true,
+  origin: function (origin, callback) {
+    // Check if the origin is in the list of allowed origins
+    if (!origin || allowedOrigins.indexOf(origin) !== -1) {
+      callback(null, true);
+    } else {
+      callback(new Error('Not allowed by CORS'));
+    }
+  },
+  credentials: true,
 };
 
 // Using the logger middleware
