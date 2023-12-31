@@ -50,6 +50,21 @@ function getUserByUsername(username) {
     })
 
 }
+function getUserByUserId(userId) {
+    return new Promise((resolve, reject) => {
+        
+        const query = 'SELECT * FROM users where userId = ?';
+        db.get(query, [userId], (err, row) => {
+            if (err) {
+                reject(err);
+            } else {
+                console.log(row)
+                resolve(row);
+            }
+        })
+    })
+
+}
 
 function insertTodo(userId, todoTitle, listId, date) {
     return new Promise((resolve, reject) => {
@@ -219,6 +234,7 @@ function getLists(userId) {
 module.exports = { 
     insertUser, 
     getUserByUsername,
+    getUserByUserId,
     insertTodo,
     updateTodo, 
     deleteTodo,

@@ -21,7 +21,7 @@ async function register(req, res) {
 
         const token = createToken({ userId, username });
 
-        res.cookie('token', token, { httpOnly: true, maxAge: 60 * 60 * 1000 });
+        res.cookie('token', token, { httpOnly: true, maxAge: 60 * 60 * 1000, sameSite: 'None' ,secure: true });
 
         res.status(201).json({ success: true, message: "Registration successful" })
     } catch (error) {
@@ -42,11 +42,11 @@ async function login(req, res) {
             if (passwordMatch) {
                 const token = createToken({ userId: user.userId, username });
 
-                res.cookie('token', token, { httpOnly: true, maxAge: 60 * 60 * 1000 });
+            res.cookie('token', token, { httpOnly: true, maxAge: 60 * 60 * 1000, sameSite: 'None' ,secure: true });
 
-                res.json({ success: true, message: 'Login successful' });
+                res.json({ success: true, message: 'Login successful', username });
             } else {
-                res.status(401).json({ success: false, message: "Invalid credentials" });
+                res.status(401).json({ success: false, message: "Invalid credentials asdas" });
             }
         } else {
             res.status(401).json({ success: false, message: "Invalid credentials" });

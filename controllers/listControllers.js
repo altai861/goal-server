@@ -64,11 +64,11 @@ async function deleteList(req, res) {
 async function getLists(req, res) {
     try {
         const userId = req.user.userId; // Assuming the user ID is stored in the JWT token
-    
+        const user = await sqliteDB.getUserByUserId(userId);
         // Get todos for the user from the database
         const lists = await sqliteDB.getLists(userId);
     
-        res.json({ success: true, lists });
+        res.json({ success: true, lists, username: user.username });
       } catch (error) {
         console.log(error);
         res.status(500).json({ success: false, message: 'Internal server error' });

@@ -13,24 +13,14 @@ const port = 3500;
 
 
 // These are allowed origins 
-const allowedOrigins = [
-    'http://localhost:5173'
-  ];
-  
-// Configure the CORS middleware
 const corsOptions = {
-    origin: function (origin, callback) {
-        if (!origin || allowedOrigins.includes(origin)) {
-            callback(null, true); // Allow the request
-        } else {
-            callback(new Error('Not allowed by CORS')); // Deny the request
-        }
-},
+    origin: 'http://localhost:5173',  // Replace with your frontend's origin
+    credentials: true,
 };
 
 // Using the logger middleware
 app.use(logger);
-app.use(cors());
+app.use(cors(corsOptions));
 
 // Using the sqlite connection middleware
 app.use(connectToSQLite)
