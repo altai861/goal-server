@@ -58,6 +58,7 @@ async function login(req, res) {
 }
 
 function logout(req, res) {
+    req.clearCookie('token')
     res.clearCookie('token');
     res.json({ success: true, message: "Logout successful" });
 }
