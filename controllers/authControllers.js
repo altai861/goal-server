@@ -57,7 +57,7 @@ async function login(req, res) {
 
         const token = createToken({ userId: foundUser._id, username });
 
-        res.cookie('token', token, { httpOnly: true, maxAge: 60 * 60 * 1000, sameSite: 'None' ,secure: true});
+        res.cookie('token', token, { httpOnly: true, maxAge: 60 * 60 * 1000, sameSite: 'None' ,secure: true });
 
         res.json({ success: true, message: 'Login successful', username });
 

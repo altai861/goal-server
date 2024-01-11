@@ -17,6 +17,8 @@ async function addTodo(req, res) {
     if (listId) newTodo.listId = listId
     if (date) newTodo.date = date
 
+    await newTodo.save();
+
     res.status(201).json({ success: true, message: 'Todo added successfully', newTodo });
   } catch (error) {
     console.log(error);
