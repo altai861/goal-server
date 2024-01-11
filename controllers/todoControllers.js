@@ -1,4 +1,3 @@
-const sqliteDB = require("../middleware/sqlite-middleware.js");
 const Todo = require("../models/Todo.js");
 const User = require("../models/User.js")
 

@@ -1,4 +1,3 @@
-const sqliteDB = require("../middleware/sqlite-middleware.js");
 const List = require("../models/List.js")
 const User = require("../models/User.js")
 
