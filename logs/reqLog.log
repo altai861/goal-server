@@ -742,3 +742,16 @@
 20231231	12:54:38	9b48ce42-07d2-4522-94b6-197081b9f480	POST	/auth/login	http://localhost:5173
 20231231	12:54:38	41d57e8f-d8e4-4752-8d39-1a15902740c9	GET	/list	http://localhost:5173
 20231231	12:54:38	af17d90c-004f-4195-b650-59f19d34a8d8	GET	/todo	http://localhost:5173
+20240111	09:50:58	bd28e62a-ebb0-4b34-a414-d3c9ed8e844d	GET	/list	http://localhost:5173
+20240111	09:51:10	62249ef1-2907-43d7-82ff-c4c5701b8205	OPTIONS	/auth/login	http://localhost:5173
+20240111	09:51:10	40d962d3-e226-432c-9df6-1d834f957f47	POST	/auth/login	http://localhost:5173
+20240111	09:51:10	a924a9f8-95ee-47c8-b83e-ba26b17f4563	GET	/list	http://localhost:5173
+20240111	09:51:10	f65d9bde-3403-453f-b767-4c32d76f1174	GET	/todo	http://localhost:5173
+20240111	09:51:30	e6390b87-b516-4298-9de3-3e12993dd0d1	GET	/list	http://localhost:5173
+20240111	09:51:30	9c3ee542-5bc6-4d25-bbaf-a8d9fd9d2fe6	GET	/todo	http://localhost:5173
+20240111	09:51:31	71281e43-c1bb-46a5-a67d-1539feeff4e1	GET	/list	http://localhost:5173
+20240111	09:51:31	edf0e484-c17e-4616-8f55-619cd723d5fb	GET	/todo	http://localhost:5173
+20240111	09:51:32	315734aa-7d29-44a1-b29c-e7e2665d76b1	GET	/list	http://localhost:5173
+20240111	09:51:32	6354af2c-9913-47f2-9e56-2c15196b82e7	GET	/todo	http://localhost:5173
+20240111	09:51:37	2a894009-f516-4fa9-8da8-09b44c7f765d	GET	/auth/logout	http://localhost:5173
+20240111	09:51:37	eba34ecf-0260-493c-84c0-1402852baf1f	GET	/list	http://localhost:5173
