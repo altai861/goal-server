@@ -825,3 +825,10 @@
 20240111	10:34:28	1f8ee505-77a9-4dd6-a4a2-1d62bf842ad2	GET	/todo	http://localhost:5173
 20240111	10:38:42	542559db-5317-44d3-9be4-847b02aa11e4	GET	/list	http://localhost:5173
 20240111	10:38:42	a9bfc74e-fcb5-4be7-bf06-4b386e93899b	GET	/todo	http://localhost:5173
+20240111	12:04:53	25b17f5a-4b5c-4da6-b415-1dc0903a5a7e	POST	/auth/register	undefined
+20240111	12:05:04	4dc15958-4b2a-4836-aa08-5e995b438aa8	POST	/auth/login	undefined
+20240111	12:05:11	46023e96-b5b2-49f3-961c-46ceb805a3b7	GET	/list	undefined
+20240111	12:06:19	48445d44-a5b2-4fc6-b731-8030640fa842	GET	/list	undefined
+20240111	12:06:26	015bed27-ecc6-4119-bc84-c4f99fc6fbfa	POST	/auth/login	undefined
+20240111	12:06:35	9d96ee2f-60e4-4785-8868-f2e43ba244fc	GET	/list	undefined
+20240111	12:06:44	90eb6da0-c3d8-464e-a05b-578108f95b73	GET	/todo	undefined

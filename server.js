@@ -1,7 +1,7 @@
 require("dotenv").config();
 const express = require("express");
-const sqlite3 = require("sqlite3");
 const path = require("path");
+const mongoose = require("mongoose")
 const cors = require("cors");
 const { logger } = require("./middleware/logger")
 const { connectToSQLite } = require("./middleware/dbConn");
@@ -37,11 +37,15 @@ app.use(express.json());
 app.use(express.static(path.join(__dirname, "public")))
 
 app.use("/", require("./routes/root.js"))
-app.use("/users", require("./routes/usersRoutes.js"));
 app.use("/auth", require("./routes/authRoutes.js"))
 app.use("/todo", require("./routes/todoRoutes.js"));
 app.use("/list", require("./routes/listRoutes.js"))
 
-app.listen(port, function () {
-    console.log("Server is running on port 3500");
+
+mongoose.connect(process.env.MONGO_URI).then(() => {
+    app.listen(port, function () {
+      console.log("Server is running on port 3500");
+  })
 })
+.catch((error) => console.log(`${error} did not connect`))
+

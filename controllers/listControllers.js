@@ -1,4 +1,7 @@
 const sqliteDB = require("../middleware/sqlite-middleware.js");
+const List = require("../models/List.js")
+const User = require("../models/User.js")
+
 
 async function addList(req, res) {
     try {
@@ -9,9 +12,14 @@ async function addList(req, res) {
             return res.status(400).json({ success: false, message: "List title is required" })
         }
 
-        const listId = await sqliteDB.addList(userId, title);
+        const newList = new List({
+            title,
+            userId
+        })
 
-        res.status(201).json({ success: true, message: 'List added successfully', listId });
+        const savedList = await newList.save();
+
+        res.status(201).json({ success: true, message: 'List added successfully', savedList });
 
     } catch (error) {
         console.log(error);
@@ -21,16 +29,17 @@ async function addList(req, res) {
 
 async function updateList(req, res) {
     try {
-        const userId = req.user.userId;
         const listId = req.params.listId;
         const { title } = req.body;
         if (!title) {
             return res.status(400).json({ success: false, message: "Nothing to update" });
         }
 
-        const success = await sqliteDB.changeListTitle(userId, listId, title);
+        const foundList = await List.findById(listId).exec();
+        foundList.title = title
+        const savedList = await foundList.save();
 
-        if (success) {
+        if (savedList) {
             res.json({ success: true, message: 'List updated successfully' });
         } else {
             res.status(404).json({ success: false, message: 'List not found or not owned by the user' });
@@ -48,9 +57,10 @@ async function deleteList(req, res) {
         const listId = req.params.listId;
     
         // Delete todo from the database
-        const success = await sqliteDB.deleteList(userId, listId);
-    
-        if (success) {
+        const foundList = await List.findById(listId);
+        const deletedList = await foundList.deleteOne();
+
+        if (deleteList) {
           res.json({ success: true, message: 'List deleted successfully' });
         } else {
           res.status(404).json({ success: false, message: 'Todo not found or not owned by the user' });
@@ -64,11 +74,15 @@ async function deleteList(req, res) {
 async function getLists(req, res) {
     try {
         const userId = req.user.userId; // Assuming the user ID is stored in the JWT token
-        const user = await sqliteDB.getUserByUserId(userId);
+        const user = await User.findById(userId).exec();
         // Get todos for the user from the database
-        const lists = await sqliteDB.getLists(userId);
-    
-        res.json({ success: true, lists, username: user.username });
+        const lists = await List.find({ userId: userId }).lean();
+        if (lists) {
+            res.json({ success: true, lists, username: user.username });
+
+        } else {
+            res.json({ success: false, lists, username: user.username });
+        }
       } catch (error) {
         console.log(error);
         res.status(500).json({ success: false, message: 'Internal server error' });

@@ -1,4 +1,6 @@
 const sqliteDB = require("../middleware/sqlite-middleware.js");
+const Todo = require("../models/Todo.js");
+const User = require("../models/User.js")
 
 async function addTodo(req, res) {
   try {
@@ -8,9 +10,15 @@ async function addTodo(req, res) {
         return res.status(400).json({ success: false, message: "TodoTitle is required" })
     }
     // Add todo to the database
-    const todoId = await sqliteDB.insertTodo(userId, todoTitle, listId, date);
+    const newTodo = new Todo.create({
+      todoTitle,
+      userId
+    });
 
-    res.status(201).json({ success: true, message: 'Todo added successfully', todoId });
+    if (listId) newTodo.listId = listId
+    if (date) newTodo.date = date
+
+    res.status(201).json({ success: true, message: 'Todo added successfully', newTodo });
   } catch (error) {
     console.log(error);
     res.status(500).json({ success: false, message: 'Internal server error' });
@@ -24,13 +32,24 @@ async function updateTodo(req, res) {
     const updateData = req.body;
 
     // Update todo in the database
-    const success = await sqliteDB.updateTodo(userId, todoId, updateData);
+    const foundTodo = await Todo.findById(todoId).exec();
 
-    if (success) {
-      res.json({ success: true, message: 'Todo updated successfully' });
+    if (foundTodo) {
+      if (updateData.todoTitle) foundTodo.todoTitle = updateData.todoTitle
+      if (updateData.listId) foundTodo.listId = updateData.listId
+      if (updateData.date) foundTodo.date = updateData.date
+      if (updateData.completed) foundTodo.completed = updateData.completed
+
+      const savedTodo = await foundTodo.save();
+
+      
+      return res.status(201).json({ message: "Updated todo", todo: savedTodo })
+      
     } else {
-      res.status(404).json({ success: false, message: 'Todo not found or not owned by the user' });
+      return res.status(400).json({ message: "Todo not found" })
     }
+
+    
   } catch (error) {
     console.log(error);
     res.status(500).json({ success: false, message: 'Internal server error' });
@@ -43,13 +62,14 @@ async function deleteTodo(req, res) {
     const todoId = req.params.todoId;
 
     // Delete todo from the database
-    const success = await sqliteDB.deleteTodo(userId, todoId);
+    const foundTodo = await Todo.findById(todoId).exec();
+    if (!foundTodo) return res.status(400).json({ message: 'Todo not found' })
 
-    if (success) {
-      res.json({ success: true, message: 'Todo deleted successfully' });
-    } else {
-      res.status(404).json({ success: false, message: 'Todo not found or not owned by the user' });
-    }
+    const deletedTodo = await foundTodo.deleteOne();
+
+    return res.status(201).json({ message: "Deleted todo ", deleteTodo })
+    
+    
   } catch (error) {
     console.log(error);
     res.status(500).json({ success: false, message: 'Internal server error' });
@@ -61,7 +81,7 @@ async function getTodo(req, res) {
     const userId = req.user.userId; // Assuming the user ID is stored in the JWT token
 
     // Get todos for the user from the database
-    const todos = await sqliteDB.getTodos(userId);
+    const todos = await Todo.find({ userId }).lean();
 
     res.json({ success: true, todos });
   } catch (error) {
