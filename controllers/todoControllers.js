@@ -9,7 +9,7 @@ async function addTodo(req, res) {
         return res.status(400).json({ success: false, message: "TodoTitle is required" })
     }
     // Add todo to the database
-    const newTodo = new Todo.create({
+    const newTodo = new Todo({
       todoTitle,
       userId
     });
