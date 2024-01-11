@@ -91,4 +91,20 @@ async function getTodo(req, res) {
   }
 }
 
-module.exports = { addTodo, updateTodo, deleteTodo, getTodo };
+async function changeCompleted(req,res) {
+  const todoId = req.params.todoId
+  const foundTodo = await Todo.findById(todoId);
+  console.log(foundTodo.completed)
+  if (foundTodo.completed) {
+    foundTodo.completed = false
+  } else {
+    foundTodo.completed = true
+  }
+
+  const savedTodo = await foundTodo.save();
+  console.log(savedTodo.completed)
+
+  return res.json({ message: "Completed" + savedTodo._id })
+}
+
+module.exports = { addTodo, updateTodo, deleteTodo, getTodo, changeCompleted };

@@ -9,6 +9,9 @@ router.route('/')
     .post(todosControllers.addTodo)
     .get(todosControllers.getTodo);
 
+router.route("/completed/:todoId")
+    .get(todosControllers.changeCompleted)
+
 router.route("/:todoId")
     .put(todosControllers.updateTodo)
     .delete(todosControllers.deleteTodo)
