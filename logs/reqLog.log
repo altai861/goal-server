@@ -823,3 +823,5 @@
 20240111	10:34:28	e1124143-20d8-400c-82c1-71712f15ef5d	POST	/auth/login	http://localhost:5173
 20240111	10:34:28	5b88b6f4-a45a-4409-8f68-d12f9dd9f3a3	GET	/list	http://localhost:5173
 20240111	10:34:28	1f8ee505-77a9-4dd6-a4a2-1d62bf842ad2	GET	/todo	http://localhost:5173
+20240111	10:38:42	542559db-5317-44d3-9be4-847b02aa11e4	GET	/list	http://localhost:5173
+20240111	10:38:42	a9bfc74e-fcb5-4be7-bf06-4b386e93899b	GET	/todo	http://localhost:5173
