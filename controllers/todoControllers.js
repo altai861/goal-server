@@ -40,7 +40,8 @@ async function updateTodo(req, res) {
       if (updateData.listId) foundTodo.listId = updateData.listId
       if (updateData.date) foundTodo.date = updateData.date
       if (updateData.completed !== null) foundTodo.completed = updateData.completed
-
+      if (updateData.description) foundTodo.description = updateData.description
+      
       const savedTodo = await foundTodo.save();
 
       
