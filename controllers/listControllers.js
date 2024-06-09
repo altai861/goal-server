@@ -4,7 +4,7 @@ const User = require("../models/User.js")
 
 async function addList(req, res) {
     try {
-        const userId = req.user.userId;
+        const userId = req.userId;
         const { title } = req.body;
 
         if (!title) {
@@ -52,7 +52,7 @@ async function updateList(req, res) {
 
 async function deleteList(req, res) {
     try {
-        const userId = req.user.userId; // Assuming the user ID is stored in the JWT token
+        const userId = req.userId; // Assuming the user ID is stored in the JWT token
         const listId = req.params.listId;
     
         // Delete todo from the database
@@ -72,7 +72,7 @@ async function deleteList(req, res) {
 
 async function getLists(req, res) {
     try {
-        const userId = req.user.userId; // Assuming the user ID is stored in the JWT token
+        const userId = req.userId; // Assuming the user ID is stored in the JWT token
         const user = await User.findById(userId).exec();
         // Get todos for the user from the database
         const lists = await List.find({ userId: userId }).lean();

@@ -1,9 +1,9 @@
 const express = require("express");
 const router = express.Router();
 const listControllers = require("../controllers/listControllers.js");
-const { authenticateUser } = require("../middleware/authenticateUser.js")
+const verifyJWT = require("../middleware/verifyJWT.js");
 
-router.use(authenticateUser)
+router.use(verifyJWT)
 
 router.route("/")
     .post(listControllers.addList)

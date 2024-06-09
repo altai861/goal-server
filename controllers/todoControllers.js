@@ -3,7 +3,7 @@ const User = require("../models/User.js")
 
 async function addTodo(req, res) {
   try {
-    const userId = req.user.userId; // Assuming the user ID is stored in the JWT token
+    const userId = req.userId; // Assuming the user ID is stored in the JWT token
     const { todoTitle, listId, date } = req.body;
     if (!todoTitle) {
         return res.status(400).json({ success: false, message: "TodoTitle is required" })
@@ -28,7 +28,7 @@ async function addTodo(req, res) {
 
 async function updateTodo(req, res) {
   try {
-    const userId = req.user.userId; // Assuming the user ID is stored in the JWT token
+    const userId = req.userId; // Assuming the user ID is stored in the JWT token
     const todoId = req.params.todoId;
     const updateData = req.body;
 
@@ -60,7 +60,7 @@ async function updateTodo(req, res) {
 
 async function deleteTodo(req, res) {
   try {
-    const userId = req.user.userId; // Assuming the user ID is stored in the JWT token
+    const userId = req.userId; // Assuming the user ID is stored in the JWT token
     const todoId = req.params.todoId;
 
     // Delete todo from the database
@@ -80,7 +80,7 @@ async function deleteTodo(req, res) {
 
 async function getTodo(req, res) {
   try {
-    const userId = req.user.userId; // Assuming the user ID is stored in the JWT token
+    const userId = req.userId; // Assuming the user ID is stored in the JWT token
 
     // Get todos for the user from the database
     const todos = await Todo.find({ userId }).lean();

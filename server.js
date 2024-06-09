@@ -4,37 +4,24 @@ const path = require("path");
 const mongoose = require("mongoose")
 const cors = require("cors");
 const { logger } = require("./middleware/logger")
-const { connectToSQLite } = require("./middleware/dbConn");
 const cookieParser = require("cookie-parser");
+const connectDB = require("./config/dbConn.js")
+const corsOptions = require("./config/corsOptions.js")
+
 
 const app = express();
-app.use(cookieParser());
 const port = 3500;
 
+connectDB();
 
-// These are allowed origins 
-const allowedOrigins = ['http://localhost:5173', 'https://altai861.github.io'];
-
-const corsOptions = {
-  origin: function (origin, callback) {
-    // Check if the origin is in the list of allowed origins
-    if (!origin || allowedOrigins.indexOf(origin) !== -1) {
-      callback(null, true);
-    } else {
-      callback(new Error('Not allowed by CORS'));
-    }
-  },
-  credentials: true,
-};
-
-// Using the logger middleware
-app.use(logger);
+app.use(cookieParser());
 app.use(cors(corsOptions));
-
-// Using the sqlite connection middleware
-app.use(connectToSQLite)
+app.use(logger);
+app.use(express.urlencoded({ extended: false }))
 app.use(express.json());
-app.use(express.static(path.join(__dirname, "public")))
+app.use('/', express.static(path.join(__dirname, '/public')));
+
+app.use("/", require("./routes/root.js"));
 
 app.use("/", require("./routes/root.js"))
 app.use("/auth", require("./routes/authRoutes.js"))
@@ -42,10 +29,18 @@ app.use("/todo", require("./routes/todoRoutes.js"));
 app.use("/list", require("./routes/listRoutes.js"))
 
 
-mongoose.connect(process.env.MONGO_URI).then(() => {
-    app.listen(port, function () {
-      console.log("Server is running on port 3500");
-  })
+app.all("*", (req, res) => {
+  res.status(404);
+  if (req.accepts('html')) {
+    res.sendFile(path.join(__dirname, 'views', '404.html'))
+  } else if (req.accepts('json')) {
+    res.json({ "error": '404 not found' })
+  } else {
+    res.type('txt').send("404 not found");
+  }
 })
-.catch((error) => console.log(`${error} did not connect`))
 
+mongoose.connection.once('open', () => {
+  console.log("Connected to MongoDB");
+  app.listen(port, () => console.log(`Server running on port ${port}`));
+})

@@ -8,6 +8,9 @@ router.route("/login")
 router.route("/register")
     .post(authControllers.register)
 
+router.route("/refresh")
+    .get(authControllers.refresh)
+
 router.route("/logout")
     .get(authControllers.logout)
 
