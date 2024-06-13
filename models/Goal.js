@@ -1,22 +1,18 @@
 const mongoose = require("mongoose")
 
-const TodoSchema = new mongoose.Schema(
+const GoalSchema = new mongoose.Schema(
     {
-        todoTitle: {
+        goalTitle: {
             type: String,
             required: true
         },
-        completed: {
-            type: Boolean,
-            default: false
+        type: {
+            type: String,
+            required: true
         },
         date: {
-            type: Date,
-            required: false
-        },
-        listId: {
             type: String,
-            required: false
+            required: true
         },
         userId: {
             type: String,
@@ -25,10 +21,14 @@ const TodoSchema = new mongoose.Schema(
         description: {
             type: String,
             default: ""
+        },
+        completed: {
+            type: Boolean,
+            default: false
         }
     }
 )
 
-const Todo = mongoose.model("Todo", TodoSchema)
+const Goal = mongoose.model("Goal", GoalSchema)
 
-module.exports = Todo
+module.exports = Goal

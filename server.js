@@ -3,7 +3,7 @@ const express = require("express");
 const path = require("path");
 const mongoose = require("mongoose")
 const cors = require("cors");
-const { logger } = require("./middleware/logger")
+const { logger } = require("./middleware/logger.js")
 const cookieParser = require("cookie-parser");
 const connectDB = require("./config/dbConn.js")
 const corsOptions = require("./config/corsOptions.js")
@@ -25,8 +25,7 @@ app.use("/", require("./routes/root.js"));
 
 app.use("/", require("./routes/root.js"))
 app.use("/auth", require("./routes/authRoutes.js"))
-app.use("/todo", require("./routes/todoRoutes.js"));
-app.use("/list", require("./routes/listRoutes.js"))
+app.use("/goal", require("./routes/goalRoutes.js"));
 
 
 app.all("*", (req, res) => {
