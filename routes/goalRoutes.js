@@ -8,7 +8,9 @@ router.use(verifyJWT);
 router.route("/")
     .get(goalControllers.getGoal)
     .post(goalControllers.addGoal)
-    .put(goalControllers.updateGoal)
     .delete(goalControllers.deleteGoal)
+
+router.route("/:id")
+    .put(goalControllers.updateGoal)
 
 module.exports = router;

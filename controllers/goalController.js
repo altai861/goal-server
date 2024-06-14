@@ -90,7 +90,38 @@ async function addGoal(req, res) {
 }
 
 async function updateGoal(req, res) {
-  
+  const goalId = req.params.id
+  const { goalTitle, type, date, completed, description } = req.body;
+
+  // Validate request body
+  if (!goalTitle || !type || !date || (completed !== false && completed !== true) || !description) {
+    return res.status(400).json({ message: "All fields are required to update Goal Object" });
+  }
+
+  try {
+    // Find the goal by ID
+    const goal = await Goal.findById(goalId);
+
+    if (!goal) {
+      return res.status(404).json({ message: "Goal not found" });
+    }
+
+    // Update the goal details
+    goal.goalTitle = goalTitle;
+    goal.type = type;
+    goal.date = date; 
+    goal.completed = completed;
+    goal.description = description;
+
+    // Save the updated goal
+    const updatedGoal = await goal.save();
+
+    // Send the updated goal as response
+    res.status(200).json(updatedGoal);
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ message: "An error occurred while updating the goal" });
+  }
 }
 
 async function deleteGoal(req, res) {
