@@ -92,9 +92,8 @@ async function addGoal(req, res) {
 async function updateGoal(req, res) {
   const goalId = req.params.id
   const { goalTitle, type, date, completed, description } = req.body;
-
   // Validate request body
-  if (!goalTitle || !type || !date || (completed !== false && completed !== true) || !description) {
+  if (!goalTitle || !type || !date || (completed !== false && completed !== true)) {
     return res.status(400).json({ message: "All fields are required to update Goal Object" });
   }
 
