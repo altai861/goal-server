@@ -3,36 +3,41 @@ const User = require("../models/User.js")
 
 async function dateFinder(dateString) {
   let date = new Date(dateString)
-  let year = parseInt(dateString.substring(0, 4))
-  let month = parseInt(dateString.substring(5, 7))
-  let seasonDate, monthDate, weekDate;
+    let year = parseInt(dateString.substring(0, 4))
+    let month = parseInt(dateString.substring(5, 7))
+    let seasonDate, monthDate, weekDate;
 
-  // season date
-  if (month >= 6 && month <= 8) {
-      seasonDate = year.toString() + "-06-01"
-  } else if (month >= 9 && month <= 11) {
-      seasonDate = year.toString() + "-09-01"
-  } else if (month >= 3 && month <= 5) {
-      seasonDate = year.toString() + "-03-01"
-  } else {
-      seasonDate = (year - 1).toString() + "-12-01"
-  }
+    // season date
+    if (month >= 6 && month <= 8) {
+        seasonDate = year.toString() + "-06-01"
+    } else if (month >= 9 && month <= 11) {
+        seasonDate = year.toString() + "-09-01"
+    } else if (month >= 3 && month <= 5) {
+        seasonDate = year.toString() + "-03-01"
+    } else {
+        seasonDate = (year - 1).toString() + "-12-01"
+    }
 
-  //month date
-  monthDate = year.toString() + "-" + (month.toString().length === 2 ? month.toString() : "0" + month.toString()) + "-01"
+    //month date
+    monthDate = year.toString() + "-" + (month.toString().length === 2 ? month.toString() : "0" + month.toString()) + "-01"
 
-  //week date
-  const dayOfWeek = date.getDay();
-  const weekStartDate = new Date(date.getTime());
-  weekStartDate.setDate(date.getDate() - (dayOfWeek-1));
-  weekDate = weekStartDate.toISOString().split("T")[0]
+    //week date
+    const dayOfWeek = date.getDay();
+    const weekStartDate = new Date(date.getTime());
+    weekStartDate.setDate(date.getDate() - ((dayOfWeek === 0 ? 7 : dayOfWeek) -1));
+    weekDate = weekStartDate.toISOString().split("T")[0]
 
-  return {
-      seasonDate,
-      monthDate,
-      weekDate,
-      today: dateString
-  }
+
+    // console.log("Season date: " + seasonDate)
+    // console.log("Month date: " + monthDate)
+    // console.log("Week date: " + weekDate)
+    // console.log("Today: " + dateString)
+    return {
+        seasonDate,
+        monthDate,
+        weekDate,
+        today: dateString
+    }
 }
 
 // Get present goals, today, this week, this month, this season, the future or past goals will not be shown everytime.

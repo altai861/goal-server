@@ -2440,3 +2440,10 @@
 20240614	15:08:58	510762e0-de40-49a1-ad55-c3a43866b9d0	GET	/goal?date=2024-06-14	http://localhost:5173
 20240614	15:09:34	76ae6340-1bc4-48c9-bf5d-921ce3e2b2cb	PUT	/goal/666ba81eb3ebb0d701509557	http://localhost:5173
 20240614	15:09:35	3ce83a16-1644-4664-b675-e15e468d9c18	GET	/goal?date=2024-06-14	http://localhost:5173
+20240616	16:30:55	9db79f25-d568-4dd9-af42-b63d47ddbdb3	GET	/goal?date=2024-06-16	http://localhost:5173
+20240616	16:30:59	0b4ba87e-1964-4b69-b27c-143be97b02d7	POST	/auth/login	http://localhost:5173
+20240616	16:30:59	90a73ac4-93ba-425f-befb-4491c76f3587	GET	/goal?date=2024-06-16	http://localhost:5173
+20240616	16:31:28	7f388415-3279-4c3a-81ac-9fba52ba8349	DELETE	/goal	http://localhost:5173
+20240616	16:31:28	4feed02f-cf77-44fc-8225-459b0a169a7f	DELETE	/goal	http://localhost:5173
+20240616	16:31:28	ea1b4ea4-370c-4590-bb55-2f81b19a0ea3	GET	/goal?date=2024-06-16	http://localhost:5173
+20240616	16:31:34	69fe303c-e9ab-4bce-a734-bf3362f4aefd	GET	/goal?date=2024-06-16	http://localhost:5173
